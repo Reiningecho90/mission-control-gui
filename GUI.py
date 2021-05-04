@@ -26,11 +26,11 @@ fault_label.place(x=0, y=30)
 while True:
     # Data Transmission Update Loop
     data_link.delete(1.0, END)
-    data_link.place(x=335, y=0)
     data = random.randint(0, 1000)
     data_link.insert(END, data)
     data_link.update()
     data_link.pack()
+    data_link.place(x=335, y=0)
 
     fault_status.delete(1.0, END)
     fault_status.place(x=360, y=30)
