@@ -1,6 +1,7 @@
 from tkinter import *
 import random
 import time
+from datetime import datetime, timezone
 
 root = Tk()
 root.title("Ground Control Telemetry Stream")
@@ -11,7 +12,7 @@ root.configure(bg='white')
 data_link = Text(root, bg='white', fg='black', height=1, width=3, font=('Courier', 14))
 data_link.pack()
 link_label = Label(root, text="Data Uplink Transmission Live:")
-link_label.config(bg='white', fg='black', font = ('Courier', 14))
+link_label.config(bg='white', fg='black', font=('Courier', 14))
 link_label.pack()
 link_label.place(x=0, y=0)
 
@@ -19,9 +20,23 @@ link_label.place(x=0, y=0)
 fault_status = Text(root, bg='white', fg='black', height=1, width=1, font=('Courier', 14))
 fault_status.pack()
 fault_label = Label(root, text="Fault Status (Mission Critical):")
-fault_label.config(bg='white', fg='black', font = ('Courier', 14))
+fault_label.config(bg='white', fg='black', font=('Courier', 14))
 fault_label.pack()
 fault_label.place(x=0, y=30)
+
+# Clock Local
+clock = Text(root, bg='white', fg='black', height=1, width=8, font=('Courier', 14))
+clock.pack()
+clock_label = Label(root, text='Time (Local):', bg='white', font=('Courier', 14))
+clock_label.pack()
+clock_label.place(x=1669, y=0)
+
+# Clock UTC
+clock_utc = Text(root, bg='white', fg='black', height=1, width=8, font=('Courier', 14))
+clock_utc.pack()
+clock_label_utc = Label(root, text='Time (UTC):', bg='white', font=('Courier', 14))
+clock_label_utc.pack()
+clock_label_utc.place(x=1669, y=30)
 
 while True:
     # Data Transmission Update Loop
@@ -32,6 +47,7 @@ while True:
     data_link.pack()
     data_link.place(x=335, y=0)
 
+    # Fault Status Update Loop
     fault_status.delete(1.0, END)
     fault_status.place(x=360, y=30)
     data = 1
@@ -40,4 +56,23 @@ while True:
     fault_status.pack()
     time.sleep(0.1)
 
+    # Live TimeUpdate Loop (local)
+    clock.delete(1.0, END)
+    now_local = datetime.now()
+    current_time_local = now_local.strftime("%H:%M:%S")
+    clock.insert(END, current_time_local)
+    clock.update()
+    clock.pack()
+    clock.place(x=1820, y=0)
+
+    # Live Time Update Loop (utc)
+    clock_utc.delete(1.0, END)
+    now_utc = datetime.now(tz=timezone.utc)
+    current_time_utc = now_utc.strftime("%H:%M:%S")
+    clock_utc.insert(END, current_time_utc)
+    clock_utc.update()
+    clock_utc.pack()
+    clock_utc.place(x=1820, y=30)
+
 root.mainloop()
+
