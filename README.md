@@ -6,3 +6,4 @@ Updates:
 - Working through to other functions as the live data plot will be worked on later (5/2/2021)
 - Moved scripts to VS Code (5/3/2021)
 - Fixed issue with data readout moving to the middle of GUI, posting updated code (5/4/2021)
+- Added clocks (Local and UTC) to the GUI (5/7/2021)
